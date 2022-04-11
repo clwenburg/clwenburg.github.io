@@ -75,17 +75,6 @@
       <p>What school has the best home court advantage? When you think of the most famous college basketball venues, a few obvious candidates come to mind&ndash;Allen Fieldhouse at Kansas, Assembly Hall at Indiana, and even The Pit at New Mexico. Of course, none of these arenas can hold a candle to the most famous arena in college basketball: Cameron Indoor Stadium, home of the Duke Blue Devils. 9,000 Cameron Crazies pack the small arena to the gills for every single game, sending chills up the spines of visiting teams. Just how good is Duke at Cameron, though? Is it really the key to their seat upon the throne of college basketball royalty? Let&rsquo;s put that question to the test.</p>
 <p>There’s two ways to narrow the home court advantage debate down: first, there’s teams like who are dominant no matter where the game is played. There are 5 teams with a home winning percentage above 90 percent: there are four unsurprising blue bloods (Kansas, Kentucky, Duke, and Gonzaga) who dominated at home throughout the decade, with Kansas on top at 95.7%. In addition, though, the Belmont Bruins round out the top five with a 91.2% winning percentage throughout the 2010s. The Bruins completed a successful decade, never finishing worse than second in their conference and qualifying for the NCAA Tournament five times. There’s no need to look at the away record of these five teams to see the home court dominance of these teams.</p>
 <p>In addition to the five teams who had the best five home records, there are a few teams who weren’t necessarily always dominant at home, but were dramatically more successful at home than on the road. When you think of home court advantage, you may not automatically think of the North Alabama Lions. This ASUN middler won 66% of their home games, but won just 10% of their away games. This dramatic discrepancy begs the question: why were the Lions so much better at home? Each of the final five teams qualifying for the title of greatest home court advantage won at least 48% more games at home than away. Three Power Five schools were successful at home and lousy on the road: Arkansas, Colorado and Nebraska. Texas Southern rounds out the top 5 “splitters” with home and away records of 86 and 38 percent, respectively.</p>
-<p>FREE THROWS</p>
-<p>Free throws are the great equalizer in college basketball. It’s always the same shot–15 feet, no defense, and as much time as you need. It should be the same everywhere, right? Wrong. Screaming fans, nerves, and many other factors make the shot much less predictable than one might think. At home, there are thousands of fans counting on you to make your shot. On the road, fans will do anything in their power to yell, distract, and confuse the shooter into missing their one-point attempt. Some teams perform well under pressure, and some flop. An ideal home court would provide its team with an environment conducive to making these shots.</p>
-<p>Graph</p>
-<p>Text</p>
-<p>SCORING MARGIN</p>
-<p>A good, old-fashioned beatdown always gives teams confidence. When a team wins by a lot, it typically means they’re performing well in all phases and aspects of the game. Moreover, fans love to see their team succeed, and what feels better than watching your team coast to a resounding victory? Of course, teams win home games more often than away games. But which teams are the most likely to succeed at home? Looking towards the average scoring margins may help put things in perspective.</p>
-<p>Graph</p>
-<p>Text</p>
-<p>SUMMARY</p>
-<p>So, after all these stats, who has the best home court advantage? Unfortunately, it’s not as simple as pointing to one specific list or metric. There are arguments to be made for Kansas, who leads the nation in home winning percentage. You could argue that North Alabama, a totally different team based on venue, has the most valuable home court. You could point to Colorado, who makes critical free throws at home. You could even look towards Texas Southern, who sees a nearly-20-point swing between their home and away games. When considering all of these numbers together, though, Arkansas is consistently near the top in every single metric. Therefore, Bud Walton Arena, in Fayetteville, Arkansas, is my pick for the greatest home court advantage in college basketball. Sorry, Cameron Crazies.</p>
-<p>Project 1 Draft 4</p>
 <pre tabindex="0"><code class="language-{r}" data-lang="{r}">library(tidyverse)
 library(ggrepel)
 seasons1019 &lt;- read_csv(&#34;data/seasons1019.csv&#34;) # Loading in personal dataset
@@ -141,10 +130,10 @@ analyzewinpct %&gt;%
     plot.subtitle = element_text(size=10), 
     panel.grid.minor = element_blank()
     ) 
-</code></pre><p>Top 10 Teams: KU, Kentucky, Duke, Gonzaga, Belmont, N. Alabama, Colo., Arkansas, NU, Texas Southern</p>
+</code></pre><p>FREE THROWS</p>
+<p>Free throws are the great equalizer in college basketball. It’s always the same shot–15 feet, no defense, and as much time as you need. It should be the same everywhere, right? Wrong. Screaming fans, nerves, and many other factors make the shot much less predictable than one might think. At home, there are thousands of fans counting on you to make your shot. On the road, fans will do anything in their power to yell, distract, and confuse the shooter into missing their one-point attempt. Some teams perform well under pressure, and some flop. An ideal home court would provide its team with an environment conducive to making these shots.</p>
 <pre tabindex="0"><code class="language-{r}" data-lang="{r}">top10 &lt;- read_csv(&#34;data/top10gamelogs - Sheet1.csv&#34;)
-</code></pre><p>Tracking difference in FT%</p>
-<pre tabindex="0"><code class="language-{r}" data-lang="{r}">freethrow &lt;- top10 %&gt;%
+</code></pre><pre tabindex="0"><code class="language-{r}" data-lang="{r}">freethrow &lt;- top10 %&gt;%
   group_by(Team, HomeAway) %&gt;%
   summarise(`Free Throw Percentage` = mean(`FT%...16`))
 </code></pre><pre tabindex="0"><code class="language-{r}" data-lang="{r}">widefreethrow &lt;- freethrow %&gt;%
@@ -154,12 +143,13 @@ analyzewinpct %&gt;%
   select(Team,`FT% - Home`,`FT% - Away`) %&gt;%
   mutate(`FT% Difference` = ((`FT% - Home`-`FT% - Away`)*100)) %&gt;%
   arrange(desc(`FT% Difference`))
-</code></pre><p>Free Throw Bar Chart</p>
-<pre tabindex="0"><code class="language-{r}" data-lang="{r}">ggplot() + 
+</code></pre><pre tabindex="0"><code class="language-{r}" data-lang="{r}">ggplot() + 
   geom_bar(data=widefreethrow, aes(x=reorder(Team, `FT% Difference`), weight=`FT% Difference`)) +
   scale_color_manual(values = c(&#34;#CFB87C&#34;,&#34;#46166B&#34;, &#34;#9D2235&#34;, &#34;#d00000&#34;, &#34;#0051ba&#34;, &#34;#75263B&#34;,&#34;#002469&#34;, &#34;#0033A0&#34;, &#34;#041E42&#34;, &#34;#00539B&#34;)) +
   coord_flip()
-</code></pre><p>Comparing Point Margins</p>
+</code></pre><p>Text</p>
+<p>SCORING MARGIN</p>
+<p>A good, old-fashioned beatdown always gives teams confidence. When a team wins by a lot, it typically means they’re performing well in all phases and aspects of the game. Moreover, fans love to see their team succeed, and what feels better than watching your team coast to a resounding victory? Of course, teams win home games more often than away games. But which teams are the most likely to succeed at home? Looking towards the average scoring margins may help put things in perspective.</p>
 <pre tabindex="0"><code class="language-{r}" data-lang="{r}">points &lt;- top10 %&gt;%
   group_by(Team, HomeAway) %&gt;%
   summarise(TmPointAvg = mean(Tm),OppPointAvg = mean(`Opp...7`)) %&gt;%
@@ -173,12 +163,13 @@ widepoints &lt;- points %&gt;%
   select(Team,`Avg. Margin - Home`,`Avg. Margin - Away`) %&gt;%
   mutate(`Point Margin` = ((`Avg. Margin - Home`-`Avg. Margin - Away`))) %&gt;%
   arrange(desc(`Point Margin`))
-</code></pre><p>Point Margin Bar Chart</p>
-<pre tabindex="0"><code class="language-{r}" data-lang="{r}">ggplot() + 
+</code></pre><pre tabindex="0"><code class="language-{r}" data-lang="{r}">ggplot() + 
   geom_bar(data=widepoints, aes(x=reorder(Team, `Point Margin`), weight=`Point Margin`)) +
   scale_color_manual(values = c(&#34;#CFB87C&#34;,&#34;#46166B&#34;, &#34;#9D2235&#34;, &#34;#d00000&#34;, &#34;#0051ba&#34;, &#34;#75263B&#34;,&#34;#002469&#34;, &#34;#0033A0&#34;, &#34;#041E42&#34;, &#34;#00539B&#34;)) +
   coord_flip()
-</code></pre>
+</code></pre><p>Text</p>
+<p>So, after all these stats, who has the best home court advantage? Unfortunately, it’s not as simple as pointing to one specific list or metric. There are arguments to be made for Kansas, who leads the nation in home winning percentage. You could argue that North Alabama, a totally different team based on venue, has the most valuable home court. You could point to Colorado, who makes critical free throws at home. You could even look towards Texas Southern, who sees a nearly-20-point swing between their home and away games. When considering all of these numbers together, though, Arkansas is consistently near the top in every single metric. Therefore, Bud Walton Arena, in Fayetteville, Arkansas, is my pick for the greatest home court advantage in college basketball. Sorry, Cameron Crazies.</p>
+
     </div>
   </article>
 
