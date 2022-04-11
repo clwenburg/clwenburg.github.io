@@ -130,8 +130,7 @@ analyzewinpct %&gt;%
     plot.subtitle = element_text(size=10), 
     panel.grid.minor = element_blank()
     ) 
-</code></pre><p>FREE THROWS</p>
-<p>Free throws are the great equalizer in college basketball. It’s always the same shot–15 feet, no defense, and as much time as you need. It should be the same everywhere, right? Wrong. Screaming fans, nerves, and many other factors make the shot much less predictable than one might think. At home, there are thousands of fans counting on you to make your shot. On the road, fans will do anything in their power to yell, distract, and confuse the shooter into missing their one-point attempt. Some teams perform well under pressure, and some flop. An ideal home court would provide its team with an environment conducive to making these shots.</p>
+</code></pre><p>Free throws are the great equalizer in college basketball. It’s always the same shot–15 feet, no defense, and as much time as you need. It should be the same everywhere, right? Wrong. Screaming fans, nerves, and many other factors make the shot much less predictable than one might think. At home, there are thousands of fans counting on you to make your shot. On the road, fans will do anything in their power to yell, distract, and confuse the shooter into missing their one-point attempt. Some teams perform well under pressure, and some flop. An ideal home court would provide its team with an environment conducive to making these shots.</p>
 <pre tabindex="0"><code class="language-{r}" data-lang="{r}">top10 &lt;- read_csv(&#34;data/top10gamelogs - Sheet1.csv&#34;)
 </code></pre><pre tabindex="0"><code class="language-{r}" data-lang="{r}">freethrow &lt;- top10 %&gt;%
   group_by(Team, HomeAway) %&gt;%
@@ -147,8 +146,7 @@ analyzewinpct %&gt;%
   geom_bar(data=widefreethrow, aes(x=reorder(Team, `FT% Difference`), weight=`FT% Difference`)) +
   scale_color_manual(values = c(&#34;#CFB87C&#34;,&#34;#46166B&#34;, &#34;#9D2235&#34;, &#34;#d00000&#34;, &#34;#0051ba&#34;, &#34;#75263B&#34;,&#34;#002469&#34;, &#34;#0033A0&#34;, &#34;#041E42&#34;, &#34;#00539B&#34;)) +
   coord_flip()
-</code></pre><p>Text</p>
-<p>SCORING MARGIN</p>
+</code></pre><p>The Colorado Buffaloes are best in Boulder&ndash;they make more than 3% more of their free throws at home in the CU Events Center. More surprisingly, though, Duke actually converts 2% less of their free throws at home. Cameron Indoor Arena gets loud and rambunctious throughout the games, but the Duke faithful need to do a better job reigning it in when the Blue Devils are at the line.</p>
 <p>A good, old-fashioned beatdown always gives teams confidence. When a team wins by a lot, it typically means they’re performing well in all phases and aspects of the game. Moreover, fans love to see their team succeed, and what feels better than watching your team coast to a resounding victory? Of course, teams win home games more often than away games. But which teams are the most likely to succeed at home? Looking towards the average scoring margins may help put things in perspective.</p>
 <pre tabindex="0"><code class="language-{r}" data-lang="{r}">points &lt;- top10 %&gt;%
   group_by(Team, HomeAway) %&gt;%
@@ -167,7 +165,7 @@ widepoints &lt;- points %&gt;%
   geom_bar(data=widepoints, aes(x=reorder(Team, `Point Margin`), weight=`Point Margin`)) +
   scale_color_manual(values = c(&#34;#CFB87C&#34;,&#34;#46166B&#34;, &#34;#9D2235&#34;, &#34;#d00000&#34;, &#34;#0051ba&#34;, &#34;#75263B&#34;,&#34;#002469&#34;, &#34;#0033A0&#34;, &#34;#041E42&#34;, &#34;#00539B&#34;)) +
   coord_flip()
-</code></pre><p>Text</p>
+</code></pre><p>Surprisingly, Texas Southern takes the crown&ndash;its home court is worth almost 20 points. Tigers: schedule more home games!</p>
 <p>So, after all these stats, who has the best home court advantage? Unfortunately, it’s not as simple as pointing to one specific list or metric. There are arguments to be made for Kansas, who leads the nation in home winning percentage. You could argue that North Alabama, a totally different team based on venue, has the most valuable home court. You could point to Colorado, who makes critical free throws at home. You could even look towards Texas Southern, who sees a nearly-20-point swing between their home and away games. When considering all of these numbers together, though, Arkansas is consistently near the top in every single metric. Therefore, Bud Walton Arena, in Fayetteville, Arkansas, is my pick for the greatest home court advantage in college basketball. Sorry, Cameron Crazies.</p>
 
     </div>
