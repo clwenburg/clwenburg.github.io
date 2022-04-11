@@ -75,10 +75,10 @@
       <p>What school has the best home court advantage? When you think of the most famous college basketball venues, a few obvious candidates come to mind&ndash;Allen Fieldhouse at Kansas, Assembly Hall at Indiana, and even The Pit at New Mexico. Of course, none of these arenas can hold a candle to the most famous arena in college basketball: Cameron Indoor Stadium, home of the Duke Blue Devils. 9,000 Cameron Crazies pack the small arena to the gills for every single game, sending chills up the spines of visiting teams. Just how good is Duke at Cameron, though? Is it really the key to their seat upon the throne of college basketball royalty? Let&rsquo;s put that question to the test.</p>
 <p>There’s two ways to narrow the home court advantage debate down: first, there’s teams like who are dominant no matter where the game is played. There are 5 teams with a home winning percentage above 90 percent: there are four unsurprising blue bloods (Kansas, Kentucky, Duke, and Gonzaga) who dominated at home throughout the decade, with Kansas on top at 95.7%. In addition, though, the Belmont Bruins round out the top five with a 91.2% winning percentage throughout the 2010s. The Bruins completed a successful decade, never finishing worse than second in their conference and qualifying for the NCAA Tournament five times. There’s no need to look at the away record of these five teams to see the home court dominance of these teams.</p>
 <p>In addition to the five teams who had the best five home records, there are a few teams who weren’t necessarily always dominant at home, but were dramatically more successful at home than on the road. When you think of home court advantage, you may not automatically think of the North Alabama Lions. This ASUN middler won 66% of their home games, but won just 10% of their away games. This dramatic discrepancy begs the question: why were the Lions so much better at home? Each of the final five teams qualifying for the title of greatest home court advantage won at least 48% more games at home than away. Three Power Five schools were successful at home and lousy on the road: Arkansas, Colorado and Nebraska. Texas Southern rounds out the top 5 “splitters” with home and away records of 86 and 38 percent, respectively.</p>
-<pre tabindex="0"><code class="language-{r}" data-lang="{r}">library(tidyverse)
+<pre tabindex="0"><code class="language-{r" data-lang="{r">library(tidyverse)
 library(ggrepel)
 seasons1019 &lt;- read_csv(&#34;data/seasons1019.csv&#34;) # Loading in personal dataset
-</code></pre><pre tabindex="0"><code class="language-{r}" data-lang="{r}">homeawaywins &lt;- seasons1019 %&gt;% # Making a new dataframe to analyze wins and losses
+</code></pre><pre tabindex="0"><code class="language-{r" data-lang="{r">homeawaywins &lt;- seasons1019 %&gt;% # Making a new dataframe to analyze wins and losses
   select(Year, School, G, `W-L%`, HomeW, HomeL, AwayW, AwayL) %&gt;%
   mutate(HomeGames = (HomeW + HomeL)) %&gt;%
   mutate(HomeWinPCT = (HomeW/HomeGames)) %&gt;%
@@ -87,14 +87,14 @@ seasons1019 &lt;- read_csv(&#34;data/seasons1019.csv&#34;) # Loading in personal
 analyzewinpct &lt;- homeawaywins %&gt;% # Refining to look at total Home/Away Win percentages
   group_by(School) %&gt;%
   summarise(&#34;Home Win Average&#34; = mean(HomeWinPCT),&#34;Away Win Average&#34; = mean(AwayWinPCT))
-</code></pre><pre tabindex="0"><code class="language-{r}" data-lang="{r}">Top5Total &lt;- analyzewinpct %&gt;% # Looking at the top 5 overall home winning percentages
+</code></pre><pre tabindex="0"><code class="language-{r" data-lang="{r">Top5Total &lt;- analyzewinpct %&gt;% # Looking at the top 5 overall home winning percentages
   arrange(desc(`Home Win Average`)) %&gt;%
   top_n(5, `Home Win Average`)
-</code></pre><pre tabindex="0"><code class="language-{r}" data-lang="{r}">Top5Delta &lt;- analyzewinpct %&gt;% # Looking at the top 5 teams by difference in home and away winning percentages
+</code></pre><pre tabindex="0"><code class="language-{r" data-lang="{r">Top5Delta &lt;- analyzewinpct %&gt;% # Looking at the top 5 teams by difference in home and away winning percentages
   mutate(WinPCTDifference = (`Home Win Average` - `Away Win Average`)) %&gt;%
   arrange(desc(WinPCTDifference)) %&gt;%
   top_n(5, WinPCTDifference)
-</code></pre><pre tabindex="0"><code class="language-{r}" data-lang="{r}">Top5TotalList &lt;- c(&#34;Duke&#34;,&#34;Gonzaga&#34;,&#34;Belmont&#34;,&#34;Kansas&#34;,&#34;Kentucky&#34;)
+</code></pre><pre tabindex="0"><code class="language-{r" data-lang="{r">Top5TotalList &lt;- c(&#34;Duke&#34;,&#34;Gonzaga&#34;,&#34;Belmont&#34;,&#34;Kansas&#34;,&#34;Kentucky&#34;)
 Top5DeltaList &lt;- c(&#34;Colorado&#34;,&#34;Arkansas&#34;,&#34;Texas Southern&#34;,&#34;Nebraska&#34;,&#34;North Alabama&#34;)
 bluepoints &lt;- analyzewinpct %&gt;%
   filter(School %in% Top5TotalList)
@@ -131,24 +131,24 @@ analyzewinpct %&gt;%
     panel.grid.minor = element_blank()
     ) 
 </code></pre><p>Free throws are the great equalizer in college basketball. It’s always the same shot–15 feet, no defense, and as much time as you need. It should be the same everywhere, right? Wrong. Screaming fans, nerves, and many other factors make the shot much less predictable than one might think. At home, there are thousands of fans counting on you to make your shot. On the road, fans will do anything in their power to yell, distract, and confuse the shooter into missing their one-point attempt. Some teams perform well under pressure, and some flop. An ideal home court would provide its team with an environment conducive to making these shots.</p>
-<pre tabindex="0"><code class="language-{r}" data-lang="{r}">top10 &lt;- read_csv(&#34;data/top10gamelogs - Sheet1.csv&#34;)
-</code></pre><pre tabindex="0"><code class="language-{r}" data-lang="{r}">freethrow &lt;- top10 %&gt;%
+<pre tabindex="0"><code class="language-{r" data-lang="{r">top10 &lt;- read_csv(&#34;data/top10gamelogs - Sheet1.csv&#34;)
+</code></pre><pre tabindex="0"><code class="language-{r" data-lang="{r">freethrow &lt;- top10 %&gt;%
   group_by(Team, HomeAway) %&gt;%
   summarise(`Free Throw Percentage` = mean(`FT%...16`))
-</code></pre><pre tabindex="0"><code class="language-{r}" data-lang="{r}">widefreethrow &lt;- freethrow %&gt;%
+</code></pre><pre tabindex="0"><code class="language-{r" data-lang="{r">widefreethrow &lt;- freethrow %&gt;%
   pivot_wider(names_from = HomeAway, values_from = `Free Throw Percentage`) %&gt;%
   mutate(`FT% - Home` = H) %&gt;%
   mutate(`FT% - Away` = `@`) %&gt;%
   select(Team,`FT% - Home`,`FT% - Away`) %&gt;%
   mutate(`FT% Difference` = ((`FT% - Home`-`FT% - Away`)*100)) %&gt;%
   arrange(desc(`FT% Difference`))
-</code></pre><pre tabindex="0"><code class="language-{r}" data-lang="{r}">ggplot() + 
+</code></pre><pre tabindex="0"><code class="language-{r" data-lang="{r">ggplot() + 
   geom_bar(data=widefreethrow, aes(x=reorder(Team, `FT% Difference`), weight=`FT% Difference`)) +
   scale_color_manual(values = c(&#34;#CFB87C&#34;,&#34;#46166B&#34;, &#34;#9D2235&#34;, &#34;#d00000&#34;, &#34;#0051ba&#34;, &#34;#75263B&#34;,&#34;#002469&#34;, &#34;#0033A0&#34;, &#34;#041E42&#34;, &#34;#00539B&#34;)) +
   coord_flip()
 </code></pre><p>The Colorado Buffaloes are best in Boulder&ndash;they make more than 3% more of their free throws at home in the CU Events Center. More surprisingly, though, Duke actually converts 2% less of their free throws at home. Cameron Indoor Arena gets loud and rambunctious throughout the games, but the Duke faithful need to do a better job reigning it in when the Blue Devils are at the line.</p>
 <p>A good, old-fashioned beatdown always gives teams confidence. When a team wins by a lot, it typically means they’re performing well in all phases and aspects of the game. Moreover, fans love to see their team succeed, and what feels better than watching your team coast to a resounding victory? Of course, teams win home games more often than away games. But which teams are the most likely to succeed at home? Looking towards the average scoring margins may help put things in perspective.</p>
-<pre tabindex="0"><code class="language-{r}" data-lang="{r}">points &lt;- top10 %&gt;%
+<pre tabindex="0"><code class="language-{r" data-lang="{r">points &lt;- top10 %&gt;%
   group_by(Team, HomeAway) %&gt;%
   summarise(TmPointAvg = mean(Tm),OppPointAvg = mean(`Opp...7`)) %&gt;%
   mutate(PointMargin = TmPointAvg-OppPointAvg) %&gt;%
@@ -161,7 +161,7 @@ widepoints &lt;- points %&gt;%
   select(Team,`Avg. Margin - Home`,`Avg. Margin - Away`) %&gt;%
   mutate(`Point Margin` = ((`Avg. Margin - Home`-`Avg. Margin - Away`))) %&gt;%
   arrange(desc(`Point Margin`))
-</code></pre><pre tabindex="0"><code class="language-{r}" data-lang="{r}">ggplot() + 
+</code></pre><pre tabindex="0"><code class="language-{r" data-lang="{r">ggplot() + 
   geom_bar(data=widepoints, aes(x=reorder(Team, `Point Margin`), weight=`Point Margin`)) +
   scale_color_manual(values = c(&#34;#CFB87C&#34;,&#34;#46166B&#34;, &#34;#9D2235&#34;, &#34;#d00000&#34;, &#34;#0051ba&#34;, &#34;#75263B&#34;,&#34;#002469&#34;, &#34;#0033A0&#34;, &#34;#041E42&#34;, &#34;#00539B&#34;)) +
   coord_flip()
